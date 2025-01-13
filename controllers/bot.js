@@ -7,24 +7,41 @@ sock.on('qr', (qr) => console.log("NEW QR CODE: ", qr));
 sock.on('ready', async () => console.log('READY BOT'))
 
 const handleMsg = async(msg, from) => {
-    // switch(msg) {
-    //     case "tes":
-    //         await sock.sendText(from, "Jangan suka ngetes");
-    //         break;
-    //     default:
-    //         await sock.sendText(from, "Mau tanya apa neh?");
-    //         break;
-    // }
-    const splits = msg.split("#")
-    switch(splits[0]) {
-        case "simpan":
-            const res = reply.create(splits[1], splits[2])
-            await sock.sendText(from, res)
-            break;
-        default:
-            await sock.sendText(from, "Saya belum mengerti maksud Anda!");
-            break;
+    let hasReply = await reply.find(msg)
+    // console.log(hasReply, 'tes')
+    if (hasReply) {
+        // console.log(hasReply)
+        await sock.sendText(from, hasReply.answer)
+    } else {
+        const splits = msg.split("#")
+        switch(splits[0]) {
+            case "simpan":
+                const result = await reply.create(splits[1], splits[2])
+                
+                await sock.sendText(from, "Masih proses")
+                break;
+            default:
+                await sock.sendText(from, "Saya belum mengerti maksud Anda!");
+                break;
+        }
     }
+
+
+
+
+    // // switch(msg) {
+    // //     case "tes":
+    // //         await sock.sendText(from, "Jangan suka ngetes");
+    // //         break;
+    // //     default:
+    // //         await sock.sendText(from, "Mau tanya apa neh?");
+    // //         break;
+    // // }
+    // // Cek jika pesan ada dalam daftar auto reply
+    // reply.find(msg)
+    // // console.log(cek)
+
+    
 }
 
 
