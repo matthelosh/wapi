@@ -22,4 +22,5 @@ db.sequelize = sequelize;
 
 db.books = require('./book')(sequelize, Sequelize);
 db.replies = require('./reply')(sequelize, Sequelize);
+db.clients = require('./client')(sequelize, Sequelize);
 module.exports = db;
