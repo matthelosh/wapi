@@ -8,9 +8,7 @@ sock.on('ready', async () => console.log('READY BOT'))
 
 const handleMsg = async(msg, from) => {
     let hasReply = await reply.find(msg)
-    // console.log(hasReply, 'tes')
     if (hasReply) {
-        // console.log(hasReply)
         await sock.sendText(from, hasReply.answer)
     } else {
         const splits = msg.split("#")
@@ -18,30 +16,13 @@ const handleMsg = async(msg, from) => {
             case "simpan":
                 const result = await reply.create(splits[1], splits[2])
                 
-                await sock.sendText(from, "Masih proses")
+                await sock.sendText(from, "Jawaban disimpan")
                 break;
             default:
-                await sock.sendText(from, "Saya belum mengerti maksud Anda!");
+                // await sock.sendText(from, "Saya belum mengerti maksud Anda!");
                 break;
         }
     }
-
-
-
-
-    // // switch(msg) {
-    // //     case "tes":
-    // //         await sock.sendText(from, "Jangan suka ngetes");
-    // //         break;
-    // //     default:
-    // //         await sock.sendText(from, "Mau tanya apa neh?");
-    // //         break;
-    // // }
-    // // Cek jika pesan ada dalam daftar auto reply
-    // reply.find(msg)
-    // // console.log(cek)
-
-    
 }
 
 
